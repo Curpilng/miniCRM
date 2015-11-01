@@ -1,0 +1,15 @@
+/* Mis definiciones de estilo */
+.profesionLista{
+	font-size: 12px;
+	margin-top: 2px;
+	color: #bbbbbb;
+}
+
+.formularios{
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+.edad{
+	margin-right:50px; 
+}
