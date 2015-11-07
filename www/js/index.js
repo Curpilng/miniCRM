@@ -17,6 +17,51 @@
  * under the License.
  */
 
+var cargarDB = {
+    db:"",
+    initialize: function(){
+
+        //Generamos el conector
+        this.db=window.openDatabase("miniCRM_DB","1.0","Base de datos miniCRM",2*1024*1024);
+        this.cargaDB();
+    },
+    cargaDB:function () {
+        console.log("Cargamos la base de datos");
+
+        this.db.transaction(this.mostrarDB,this.mostrarDBError);
+    },
+    mostrarDB:function(tx){
+        var sql="SELECT * FROM registro;";
+        console.log("Lanzamos la consulta");
+        tx.executeSql(
+            sql,
+            [],
+            //Función de resultado OK
+            function(tx,result){
+                console.log("Se ha producido la consulta con exito");
+                if(result.rows.length>0){
+                    for(var i=0;i<result.rows.length;i++){
+                        var fila=result.rows.item(i);
+                        //Aquí actualizaría automaticamente el html
+                        console.log("ROW "+i+" nombre: "+fila.nombre_apellidos);
+                        $("#lista ul").append("<li><a href='detalles.html'><img src='./img/prueba.png' ><div align='center'>"+fila.nombre_apellidos+"</div><div class='profesionLista' align='center'>"+fila.localidad+"</div></a></li>").listview('refresh');
+                    }
+                }
+            },
+            //Función de error
+            function(tx,error){
+                this.mostrarDBError(error);
+            }
+        );
+    },
+    mostrarDBError:function(err){
+        console.log("Se ha producido un error en la creacion de la base de datos: "+error.code);
+        console.log("Mensaje de error: "+err.message);
+    }
+ };
+
+
+
 var confDB = {
     existe_db:"",
     db:"",
@@ -24,12 +69,20 @@ var confDB = {
         //Variable existe db;
         this.existe_db=window.localStorage.getItem("existe_db");
         //Creamos un enlace con la base de datos
-        this.db=window.openDatabase("miniCRM_DB","1.0","Base de datos miniCRM",2*1024*1024);
+        
 
         //Comprobamos si existe existe_db
         if (this.existe_db==null) {
             console.log("No existe Base de datos");
+
+            //Creamos un enlace con la base de datos
+            this.db=window.openDatabase("miniCRM_DB","1.0","Base de datos miniCRM",2*1024*1024);
+
             this.createDB();
+        }else{
+            //Creada
+            console.log("Base de datos ya existe");
+            cargarDB.initialize();
         }
     },
 
@@ -41,6 +94,30 @@ var confDB = {
     },
 
     createLocalDB:function(tx){
+        tx.executeSql("DROP TABLE IF EXISTS registro");
+
+
+        var sql="CREATE TABLE IF NOT EXISTS registro("+
+                "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "nombre_apellidos VARCHAR(256),"+
+                "edad INT(10),"+
+                "localidad VARCHAR(100),"+
+                "telefono VARCHAR(15),"+
+                "email VARCHAR(256));";
+
+        tx.executeSql(sql);
+
+        //Insertamos datos
+        sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email)"+
+                " VALUES('Sergio Vera Leal','20','Valencia','633233322','email@gmail.com');";
+
+        tx.executeSql(sql);
+
+        sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email)"+
+                " VALUES('Ignacio Ferrer','19','Benetusser','633567643','email2@gmail.com');";
+
+        tx.executeSql(sql);
+
     },
     createDBError:function(err){
         console.log("Se ha producido un error en la creacion de la base de datos: "+error.code);
@@ -48,6 +125,7 @@ var confDB = {
     createDBSucc:function(){
         console.log("Se ha generado la base de datos con exito");
         window.localStorage.setItem("existe_db",1);
+        cargarDB.initialize();
     }
     
 };
