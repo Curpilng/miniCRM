@@ -44,10 +44,23 @@ var cargarDB = {
                         var fila=result.rows.item(i);
                         //Aquí actualizaría automaticamente el html
                         console.log("ROW "+i+" nombre: "+fila.nombre_apellidos);
-                        $("#lista ul").append("<li><a href='detalles.html'><img src='./img/prueba.png' ><div align='center'>"+fila.nombre_apellidos+"</div><div class='profesionLista' align='center'>"+fila.localidad+"</div></a></li>").listview('refresh');
+                        $("#lista ul").append("<li id='"+fila.id+"' class='listaUsers'><a href='detalles.html' data-ajax='false'><img src='./img/prueba.png' ><div align='center'>"+fila.nombre_apellidos+"</div><div class='profesionLista' align='center'>"+fila.localidad+"</div></a></li>").listview('refresh');
                     }
                 }
+                //Guardamos la id en el LocalStorage
+                $(document).ready(
+                    function(){
+                        $('.listaUsers').click(
+                            function(){
+                                var id=$(this).attr("id");
+                                window.localStorage.setItem("user_id",id);
+                            }
+                        );
+                    }
+                );
             },
+
+            
             //Función de error
             function(tx,error){
                 this.mostrarDBError(error);

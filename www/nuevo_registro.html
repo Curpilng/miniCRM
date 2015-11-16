@@ -53,21 +53,23 @@
             </div>
             
 
-             <div class="ui-field-contain formularios ">
+             <div data-role="main" class="ui-content" id="nuevo_registro">
+                <label for="nombre_apellidos">Nombre y Apellidos:</label>
                 <input type="text" name="nombre_apellidos" id="nombre_apellidos" placeholder="Nombre Apellidos">
-
+                <label for="edad">Edad:</label>
                 <input type="text" name="edad" id="edad" placeholder="Edad" >
-
+                <label for="localidad">Localidad:</label>
                 <input type="text" name="localidad" id="localidad" placeholder="Localidad">
-
+                <label for="telefono">Teléfono:</label>
                 <input type="text" name="telefono" id="telefono" placeholder="Teléfono">
-
-                <input type="text" name="email" id="email" placeholder="Email Address">
+                <label for="email">E-Mail:</label>
+                <input type="text" name="email" id="email" placeholder="E-Mail">
             </div>
 
-            <div class="ui-field-contain formularios "  align="right">
-                <input type="submit"  data-inline="true" value="Registrar">
+            <div align="right">
+                <a href="index.html" data-role="button" data-inline="true" data-ajax="false" id="registrar">Registrar</a>
             </div>
+
 
         </div>
 
@@ -76,7 +78,7 @@
         <script type="text/javascript" src="jquery/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="jquery/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/nuevo_registro.js"></script>
         <script type="text/javascript">
         </script>
     </body>
