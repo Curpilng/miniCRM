@@ -3,6 +3,7 @@ var edad=0;
 var localidad="";
 var telefono="";
 var email="";
+var foto="";
 var db="";
 var id="";
 
@@ -38,6 +39,7 @@ initialize: function(){
                         localidad=fila.localidad;
                         telefono=fila.telefono;
                         email=fila.email;
+                        foto=fila.foto;
                         //Aquí actualizaría automaticamente el html
                         console.log("ROW "+i+" nombre: "+fila.nombre_apellidos);
                         $("#nombre_apellidos").append(nombre_apellidos);
@@ -45,6 +47,8 @@ initialize: function(){
                         $("#localidad").append(localidad);
                         $("#telefono").append(telefono);
                         $("#correo").append(email);
+                        $("#avatar").attr("src",foto);
+
                     }
                 }
             },

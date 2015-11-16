@@ -3,12 +3,13 @@ var edad=0;
 var localidad="";
 var telefono="";
 var email="";
+var foto="";
 var db="";
 
 
 function insertarDatos(tx){
-	sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email)"+
-        "VALUES('"+nombre_apellidos+"','"+edad+"','"+localidad+"','"+telefono+"','"+email+"');";
+	sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email,foto)"+
+        "VALUES('"+nombre_apellidos+"','"+edad+"','"+localidad+"','"+telefono+"','"+email+"','"+foto+"');";
 
     tx.executeSql(sql);
     console.log("ROW INSERT: "+sql);  
@@ -37,4 +38,27 @@ $("#registrar").click(
 					}
 );
 
+function mostrarImagen(imageURI){
+	foto = imageURI;
+	console.log("IMAGEN: "+imageURI);
+
+	$("#avatar").attr("src",imageURI);
+
+};
+
+function errorImagen(message){
+	console.log("MENSAJE DE ERROR: "+message);
+};
+
+$("#avatar").click(
+	function(event){
+		navigator.camera.getPicture(
+			mostrarImagen,
+			errorImagen,
+			{ quality: 50,
+			  destinationType: Camera.DestinationType.FILE_URI
+			}
+		);
+	}
+);
 

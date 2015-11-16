@@ -12,6 +12,7 @@
     <plugin name="cordova-plugin-dialogs" />
     <plugin name="cordova-plugin-device" />
     <plugin name="cordova-plugin-console" />
+    <plugin name="cordova-plugin-camera" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

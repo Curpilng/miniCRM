@@ -43,8 +43,8 @@ var cargarDB = {
                     for(var i=0;i<result.rows.length;i++){
                         var fila=result.rows.item(i);
                         //Aquí actualizaría automaticamente el html
-                        console.log("ROW "+i+" nombre: "+fila.nombre_apellidos);
-                        $("#lista ul").append("<li id='"+fila.id+"' class='listaUsers'><a href='detalles.html' data-ajax='false'><img src='./img/prueba.png' ><div align='center'>"+fila.nombre_apellidos+"</div><div class='profesionLista' align='center'>"+fila.localidad+"</div></a></li>").listview('refresh');
+                        console.log("ROW "+i+" nombre: "+fila.nombre_apellidos+" foto: "+fila.foto);
+                        $("#lista ul").append("<li id='"+fila.id+"' class='listaUsers'><a href='detalles.html' data-ajax='false'><img src='"+fila.foto+"' ><div align='center'>"+fila.nombre_apellidos+"</div><div class='profesionLista' align='center'>"+fila.localidad+"</div></a></li>").listview('refresh');
                     }
                 }
                 //Guardamos la id en el LocalStorage
@@ -116,11 +116,12 @@ var confDB = {
                 "edad INT(10),"+
                 "localidad VARCHAR(100),"+
                 "telefono VARCHAR(15),"+
-                "email VARCHAR(256));";
+                "email VARCHAR(256),"+
+                "foto VARCHAR(256));";
 
         tx.executeSql(sql);
 
-        //Insertamos datos
+        /*Insertamos datos
         sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email)"+
                 " VALUES('Sergio Vera Leal','20','Valencia','633233322','email@gmail.com');";
 
@@ -129,7 +130,7 @@ var confDB = {
         sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email)"+
                 " VALUES('Ignacio Ferrer','19','Benetusser','633567643','email2@gmail.com');";
 
-        tx.executeSql(sql);
+        tx.executeSql(sql);*/
 
     },
     createDBError:function(err){
