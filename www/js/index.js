@@ -17,6 +17,8 @@
  * under the License.
  */
 
+
+//Cargar Base de Datos
 var cargarDB = {
     db:"",
     initialize: function(){
